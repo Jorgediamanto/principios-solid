@@ -1,8 +1,36 @@
 @startuml
 class Matriz {
-  - elementos: List[List[int]]
-  + __init__(elementos: List[List[int]])
-  + imprimir(): void
-  + transpuesta(): Matriz
+  - elementos: list
+  + __init__(elementos: list)
 }
+
+class Transpuesta {
+  - matriz: Matriz
+  + __init__(matriz: Matriz)
+  + calcular_transpuesta(): Matriz
+}
+
+class Imprimir {
+  - matriz: Matriz
+  + __init__(matriz: Matriz)
+  + imprimir(): void
+}
+
+class Lanzador {
+  - elementos: list
+  - cantidad_filas: int
+  - cantidad_columnas: int
+  - matriz: Matriz
+  - transpuesta: Transpuesta
+  - imprimir: Imprimir
+  + __init__()
+  + crear_matriz(): void
+  + lanzar(): void
+}
+
+Matriz --> "1" Transpuesta : contiene >
+Matriz --> "1" Imprimir : contiene >
+Lanzador --> Matriz : contiene >
+Lanzador --> Transpuesta : contiene >
+Lanzador --> Imprimir : contiene >
 @enduml

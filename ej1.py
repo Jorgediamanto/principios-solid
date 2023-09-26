@@ -1,27 +1,50 @@
-#comenzamos creando la clase matriz
-class Matriz():
+class Matriz:
     def __init__(self, elementos: list):
         self.elementos = elementos
 
-#a continuacion, creamos cada uno de los metodos en una clase separada, dado que se nos indica en el enunciado que cada metodo debe tener una unica responsabilidad
-
-class Transpuesta(Matriz):
-    def __init__(self, elementos: list):
-        super().__init__(elementos)
+class Transpuesta:
+    def __init__(self, matriz: Matriz):
+        self.matriz = matriz
     
-    def transpuesta(self):
-        return Matriz([[fila[i] for fila in self.elementos] for i in range(len(self.elementos[0]))])
+    def calcular_transpuesta(self):
+        return Matriz([[fila[i] for fila in self.matriz.elementos] for i in range(len(self.matriz.elementos[0]))])
 
-class Imprimir(Matriz):
-    def __init__(self, elementos: list):
-        super().__init__(elementos)
+class Imprimir:
+    def __init__(self, matriz: Matriz):
+        self.matriz = matriz
     
     def imprimir(self):
-        for fila in self.elementos:
+        for fila in self.matriz.elementos:
             print(fila)
 
-m = Imprimir([[1, 2], [3, 4]])
-m.imprimir()
+class Lanzador:
+    def __init__(self):
+        self.elementos = []
+        self.cantidad_filas = int(input("Ingrese la cantidad de filas: "))
+        self.cantidad_columnas = int(input("Ingrese la cantidad de columnas: "))
+        self.crear_matriz()
+        self.matriz = Matriz(self.elementos)
+        self.transpuesta = Transpuesta(self.matriz)
+        self.imprimir = Imprimir(self.matriz)
 
-t = Transpuesta(m.elementos)
-print(t.transpuesta().elementos)
+    def crear_matriz(self):
+        for i in range(self.cantidad_filas):
+            fila = []
+            for j in range(self.cantidad_columnas):
+                fila.append(int(input(f"Ingrese el elemento {i+1},{j+1}: ")))
+            self.elementos.append(fila)
+
+    def lanzar(self):
+        print("La matriz es: ")
+        self.imprimir.imprimir()
+        print("La matriz transpuesta es: ")
+        transpuesta_result = self.transpuesta.calcular_transpuesta()
+        imprimir_transpuesta = Imprimir(transpuesta_result)
+        imprimir_transpuesta.imprimir()
+
+if __name__ == "__main__":
+    lanzador = Lanzador()
+    lanzador.lanzar()
+
+    
+        
